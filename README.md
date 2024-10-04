@@ -15,7 +15,7 @@ Actually only TUI version, GUI version to be made. <br><br>
 
 # Features
 
-- Image converter [Converts any non-png image to png]
+- Image converter (Converts any non-png image to png)
 - Automatic HyprPaper configuration.
 - No need of pip installs.
 - Automatic display detector.
@@ -27,9 +27,11 @@ Actually only TUI version, GUI version to be made. <br><br>
 # Dependencies
 - Python
 - Wayland
-- Hyprland [For folders, may be changed to be independent.]
+- Hyprland (For folders, may be changed to be independent.)
+- Hyprctl
+- smenu (For, yes, you guessed, m e n u s)
 - Hyprpaper
-- mpvPaper [On the future]
+- mpvPaper (On the future)
 
 # To-Do
 - Independent folder in <~/.config> where you'll be able to install new modules.
