@@ -1,3 +1,9 @@
+"""
+Author  - Breena Icefrost
+Date    - 2024-10-04
+Version - 0.6
+"""
+
 import subprocess
 
 # Define the command as a list of strings
@@ -11,3 +17,4 @@ if __name__ == "__main__":
     displays = screens()
     for display in displays:
         print(display)
+    print("ALL")

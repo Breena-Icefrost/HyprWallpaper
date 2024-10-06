@@ -27,7 +27,10 @@ else
         mkdir ~/.config/hypr/utilities &&
         mkdir ~/.config/hypr/utilities/oldWallpapers &&
         if [[ -f ~/Pictures/Wallpapers/default-wallpaper.png ]]; then
-                cp ~/Pictures/Wallpapers/default-wallpaper.png
+                cp ~/Pictures/Wallpapers/default-wallpaper.png ~/.config/hypr/utilities/ALL-wallpaper.png
+                hyprctl hyprpaper unload all >/dev/null 2>&1 &&
+                hyprctl hyprpaper preload ~/.config/hypr/utilities-ALL-wallpaper.png >/dev/null 2>&1 &&
+                hyprctl hyprpaper wallpaper "*,~/.config/hypr/utilities/ALL-wallpaper.png" >/dev/null 2>&1
         fi
 fi
 
@@ -40,8 +43,17 @@ if [[ -f ~/Pictures/Wallpapers/$ENTRY ]]; then
         fi
         cp ~/Pictures/Wallpapers/"$ENTRY" ~/.config/hypr/utilities/"$DISPLAY"-wallpaper.png &&
         hyprctl hyprpaper unload all >/dev/null 2>&1 &&
-        hyprctl hyprpaper preload ~/.config/hypr/utilities/"$DISPLAY"-wallpaper.png >/dev/null 2>&1 &&
-        hyprctl hyprpaper wallpaper "$DISPLAY,~/.config/hypr/utilities/"$DISPLAY"-wallpaper.png" >/dev/null 2>&1
+        if [[ $DISPLAY = "ALL" ]]; then
+                echo "Changing all displays' wallpapers!"
+                for monitor in $(hyprctl monitors | grep 'Monitor' | awk '{ print $2 }'); do
+                        hyprctl hyprpaper preload ~/.config/hypr/utilities/"$DISPLAY"-wallpaper.png >/dev/null 2>&1 &&
+                        hyprctl hyprpaper wallpaper "$monitor"", ~/.config/hypr/utilities/"$DISPLAY"-wallpaper.png" >/dev/null 2>&1
+                done
+        else
+                echo "Changing $DISPLAY's wallpaper!"
+                hyprctl hyprpaper preload ~/.config/hypr/utilities/"$DISPLAY"-wallpaper.png >/dev/null 2>&1 &&
+                hyprctl hyprpaper wallpaper "$DISPLAY,~/.config/hypr/utilities/"$DISPLAY"-wallpaper.png" >/dev/null 2>&1
+        fi
         python ~/.config/hypr/scripts/HyprWallpaper/hyprwallpaper-configurer.py $DISPLAY
 else
         echo $ENTRY

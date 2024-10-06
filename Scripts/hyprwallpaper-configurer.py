@@ -1,7 +1,7 @@
 """
-Author  - Breena Lockser
+Author  - Breena Icefrost
 Date    - 2024-10-04
-Version - 0.5
+Version - 0.6
 """
 
 import os, sys
@@ -25,10 +25,22 @@ def importScreen(display):
             if display in line:
                 existingConfig = True
     if existingConfig == False:
-        with open(home / ".config/hypr/hyprpaper.conf", "a") as f:
-            f.write(f"preload = {home}/.config/hypr/utilities/{display}-wallpaper.png\n")
-            f.write(f"wallpaper = {display}, {home}/.config/hypr/utilities/{display}-wallpaper.png\n")
-            f.close()
+        if display == "ALL":
+            with open(home / ".config/hypr/hyprpaper.conf", "w") as file:
+                file.write(f"preload = {home}/.config/hypr/utilities/{display}-wallpaper.png\n")
+                file.write(f"wallpaper = , {home}/.config/hypr/utilities/{display}-wallpaper.png\n")
+                file.close()
+        else:
+            with open(home / ".config/hypr/hyprpaper.conf", 'w') as file:
+                for line in lines:
+                    if "ALL" in line:
+                        pass
+                    else:
+                        file.write(line)
+            with open(home / ".config/hypr/hyprpaper.conf", "a") as file:
+                file.write(f"preload = {home}/.config/hypr/utilities/{display}-wallpaper.png\n")
+                file.write(f"wallpaper = {display}, {home}/.config/hypr/utilities/{display}-wallpaper.png\n")
+                file.close()
 
 if __name__ == "__main__":
     importScreen(sys.argv[1])
