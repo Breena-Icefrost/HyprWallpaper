@@ -1,7 +1,7 @@
 """
 Author  - Breena Lockser
 Date    - 2024-10-04
-Version - 0.6
+Version - 0.5
 """
 
 import os, sys
@@ -27,7 +27,7 @@ def importScreen(display):
     if existingConfig == False:
         with open(home / ".config/hypr/hyprpaper.conf", "a") as f:
             f.write(f"preload = {home}/.config/hypr/utilities/{display}-wallpaper.png\n")
-            f.write(f"wallpaper = {display}.{home}/.config/hypr/utilities/{display}-wallpaper.png\n")
+            f.write(f"wallpaper = {display}, {home}/.config/hypr/utilities/{display}-wallpaper.png\n")
             f.close()
 
 if __name__ == "__main__":

@@ -17,6 +17,9 @@ fi
 find ~/Pictures/Wallpapers/ -name "*.jpg" -exec mogrify -format png {} \; &&
 find ~/Pictures/Wallpapers/ -name "*.jpg" -exec rm {} \; &&
 
+find ~/Pictures/Wallpapers/ -name "*.jpeg" -exec mogrify -format png {} \; &&
+find ~/Pictures/Wallpapers/ -name "*.jpeg" -exec rm {} \; &&
+
 if [[ -d ~/.config/hypr/utilities ]]; then
         echo Existing utilities folder.
 else
