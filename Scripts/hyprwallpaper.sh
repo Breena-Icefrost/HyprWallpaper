@@ -36,8 +36,12 @@ fi
 
 ENTRY=$(ls ~/Pictures/Wallpapers/ | smenu -t -W $'\n' -m '      Select the wallpaper you wish to use;')
 
+parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+
+cd "$parent_path"
+
 if [[ -f ~/Pictures/Wallpapers/$ENTRY ]]; then
-        DISPLAY=$(python ~/.config/hypr/scripts/HyprWallpaper/hyprwallpaper-displays.py | smenu -t -m '  Select the display;')
+        DISPLAY=$(python hyprwallpaper-displays.py | smenu -t -m '  Select the display;')
         if [[ -f ~/.config/hypr/utilities/"$DISPLAY"-wallpaper.png ]]; then
                 mv ~/.config/hypr/utilities/"$DISPLAY"-wallpaper.png ~/.config/hypr/utilities/oldWallpapers/"$DISPLAY"-oldWallpaper.png
         fi
@@ -54,7 +58,7 @@ if [[ -f ~/Pictures/Wallpapers/$ENTRY ]]; then
                 hyprctl hyprpaper preload ~/.config/hypr/utilities/"$DISPLAY"-wallpaper.png >/dev/null 2>&1 &&
                 hyprctl hyprpaper wallpaper "$DISPLAY,~/.config/hypr/utilities/"$DISPLAY"-wallpaper.png" >/dev/null 2>&1
         fi
-        python ~/.config/hypr/scripts/HyprWallpaper/hyprwallpaper-configurer.py $DISPLAY
+        python hyprwallpaper-configurer.py $DISPLAY
 else
         echo $ENTRY
         echo 'Invalid selection. Exiting...'
