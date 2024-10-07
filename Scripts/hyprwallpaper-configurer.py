@@ -34,7 +34,7 @@ def importScreen(display):
             with open(home / ".config/hypr/hyprpaper.conf", 'w') as file:
                 for line in lines:
                     if "ALL" in line:
-                        pass
+                        print("Found an imcompatible configuration, removing it...")
                     else:
                         file.write(line)
             with open(home / ".config/hypr/hyprpaper.conf", "a") as file:
