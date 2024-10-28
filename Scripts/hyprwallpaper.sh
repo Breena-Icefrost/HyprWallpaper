@@ -5,6 +5,13 @@ trap "echo 'Closing HyprWallpaper...'; exit 0" SIGINT
 
 echo Starting HyprWallpaper...
 
+if [[ -d ~/Pictures ]]; then
+        echo "Existing pictures folder."
+else
+        echo "No existing pictures folder, creating..."
+        mkdir ~/Pictures
+fi
+
 if [[ -d ~/Pictures/Wallpapers ]]; then
         echo Existing wallpaper folder.
 else

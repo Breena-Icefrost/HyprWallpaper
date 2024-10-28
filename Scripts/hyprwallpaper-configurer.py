@@ -14,8 +14,10 @@ existingFile = True
 try:
     with open(home / ".config/hypr/hyprpaper.conf", "r") as f:
         lines = f.readlines()
+    f.close()
 except:
     f = open(home / ".config/hypr/hyprpaper.conf", "x")
+    f.close()
     existingFile = False
 
 def importScreen(display):
