@@ -5,54 +5,46 @@ trap "echo 'Closing HyprWallpaper...'; exit 0" SIGINT
 
 echo Starting HyprWallpaper...
 
-if [[ -d ~/Pictures ]]; then
-        echo "Existing pictures folder."
-else
-        echo "No existing pictures folder, creating..."
-        mkdir ~/Pictures
-fi
-
-if [[ -d ~/Pictures/Wallpapers ]]; then
+if [[ -d ~/Wallpapers ]]; then
         echo Existing wallpaper folder.
 else
         echo No existing wallpaper folder, creating...
-        mkdir ~/Pictures/Wallpapers &&
-        wget -O ~/Pictures/Wallpapers/default-wallpaper.jpg https://wallpapercave.com/wp/wp2342429.jpg -q &&
+        mkdir -p ~/Wallpapers &&
+        wget -O ~/Wallpapers/default-wallpaper.jpg https://wallpapercave.com/wp/wp2342429.jpg -q &&
         sleep 0
 fi
 
-find ~/Pictures/Wallpapers/ -name "*.jpg" -exec mogrify -format png {} \; &&
-find ~/Pictures/Wallpapers/ -name "*.jpg" -exec rm {} \; &&
+find ~/Wallpapers/ -name "*.jpg" -exec mogrify -format png {} \; &&
+find ~/Wallpapers/ -name "*.jpg" -exec rm {} \; &&
 
-find ~/Pictures/Wallpapers/ -name "*.jpeg" -exec mogrify -format png {} \; &&
-find ~/Pictures/Wallpapers/ -name "*.jpeg" -exec rm {} \; &&
+find ~/Wallpapers/ -name "*.jpeg" -exec mogrify -format png {} \; &&
+find ~/Wallpapers/ -name "*.jpeg" -exec rm {} \; &&
 
 if [[ -d ~/.config/hypr/utilities ]]; then
         echo Existing utilities folder.
 else
         echo No existing utilities folder, creating...
-        mkdir ~/.config/hypr/utilities &&
-        mkdir ~/.config/hypr/utilities/oldWallpapers &&
-        if [[ -f ~/Pictures/Wallpapers/default-wallpaper.png ]]; then
-                cp ~/Pictures/Wallpapers/default-wallpaper.png ~/.config/hypr/utilities/ALL-wallpaper.png
+        mkdir -p ~/.config/hypr/utilities/oldWallpapers &&
+        if [[ -f ~/Wallpapers/default-wallpaper.png ]]; then
+                cp ~/Wallpapers/default-wallpaper.png ~/.config/hypr/utilities/ALL-wallpaper.png
                 hyprctl hyprpaper unload all >/dev/null 2>&1 &&
                 hyprctl hyprpaper preload ~/.config/hypr/utilities-ALL-wallpaper.png >/dev/null 2>&1 &&
                 hyprctl hyprpaper wallpaper "*,~/.config/hypr/utilities/ALL-wallpaper.png" >/dev/null 2>&1
         fi
 fi
 
-ENTRY=$(ls ~/Pictures/Wallpapers/ | smenu -t -W $'\n' -m '      Select the wallpaper you wish to use;')
+ENTRY=$(ls ~/Wallpapers/ | smenu -t -W $'\n' -m '      Select the wallpaper you wish to use;')
 
 parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 
 cd "$parent_path"
 
-if [[ -f ~/Pictures/Wallpapers/$ENTRY ]]; then
+if [[ -f ~/Wallpapers/$ENTRY ]]; then
         DISPLAY=$(python hyprwallpaper-displays.py | smenu -t -m '  Select the display;')
         if [[ -f ~/.config/hypr/utilities/"$DISPLAY"-wallpaper.png ]]; then
                 mv ~/.config/hypr/utilities/"$DISPLAY"-wallpaper.png ~/.config/hypr/utilities/oldWallpapers/"$DISPLAY"-oldWallpaper.png
         fi
-        cp ~/Pictures/Wallpapers/"$ENTRY" ~/.config/hypr/utilities/"$DISPLAY"-wallpaper.png &&
+        cp ~/Wallpapers/"$ENTRY" ~/.config/hypr/utilities/"$DISPLAY"-wallpaper.png &&
         hyprctl hyprpaper unload all >/dev/null 2>&1 &&
         if [[ $DISPLAY = "ALL" ]]; then
                 echo "Changing all displays' wallpapers!"
