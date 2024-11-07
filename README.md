@@ -6,7 +6,7 @@ Tired of going to a configuration file to manually change the wallpaper you want
 Then fear not!<br><br>
 HyprWallpaper is a user-made to be finished backend-tool to dynamically switch between wallpapers on the spot, by using a folder that's automatically created in the Pictures folder.<br><br>
 Actually only TUI version, GUI version to be made. <br><br>
-! Future module for future configuration app HyprConfig !
+! Module for configuration app HyprConfig !
 <br>
 
 <br>
