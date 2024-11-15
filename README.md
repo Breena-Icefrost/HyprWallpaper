@@ -13,6 +13,8 @@ Actually only TUI version, GUI version to be made. <br><br>
 
 </div>
 
+# PROJECT IS INCOMPLETE AND STILL HAS NO WAY OF STANDARD INSTALLATION. DEVELOPEMENT ONLY! 
+
 # Features
 
 - Image converter (Converts any non-png image to png)
