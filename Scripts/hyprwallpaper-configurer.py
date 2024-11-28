@@ -28,7 +28,6 @@ def generalWallpaperRemover(display):
                 print("Found an imcompatible configuration, removing it...")
             else:
                 file.write(line)
-                print(line)
 
 # Set of instructions to either not do anything because it's already working, or configure to make it work.
 def importScreen(display):
